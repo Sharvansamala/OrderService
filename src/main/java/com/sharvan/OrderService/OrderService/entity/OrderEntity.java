@@ -1,8 +1,7 @@
 package com.sharvan.OrderService.OrderService.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import com.sharvan.OrderService.OrderService.enums.OrderStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "orders")
 public class OrderEntity extends BaseEntity{
 
     private Long userId;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "order")
-    List<OrderItemsEntity> list;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "order",cascade = CascadeType.ALL)
+    List<OrderItemsEntity> items;
 }
