@@ -56,4 +56,9 @@ public class OrderService implements IOrderService {
                 .orElseThrow(()-> new ResourceNotFoundException("Order not found with id: " + id));
         return OrderMapper.toCreateOrderResponseDTO(order);
     }
+
+    @Override
+    public ProductDTO getProductById(Long productId) {
+        return productClient.getProductByID(productId);
+    }
 }
